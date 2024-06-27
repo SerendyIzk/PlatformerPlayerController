@@ -12,7 +12,7 @@ public class FallingObjectSizeScaling : MonoBehaviour
 
     private void VerticalScaleUpdate() { Vector3 localscale = transform.localScale; Vector3 pos = transform.position;
         if (_fo.GC.IsGrounded) {
-            var offset = (transform.localScale.y - BaseVerticalScale) * _mf.mesh.bounds.size.y;
+            var offset = Mathf.Abs((transform.localScale.y - BaseVerticalScale) * _mf.mesh.bounds.size.y);
             transform.localScale = new Vector3(localscale.x, BaseVerticalScale, localscale.z);
             transform.position = new Vector3(pos.x, pos.y - offset, pos.z); }
         else transform.localScale = new Vector3(localscale.x, Mathf.Lerp(_minVerticalScale, _maxVerticalScale, Mathf.Abs(_fo.VerticalVelocity / _fo.MaxVerticalVelocity)), localscale.z); }
