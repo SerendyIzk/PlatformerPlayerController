@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class dvigenie : MonoBehaviour
 {
-    public float gravity = 9.8f;
     public float maxSpeed = 10f;
     public float uskorenie = 0.6f;
     public float tormoz = 3.6f;
@@ -12,7 +11,6 @@ public class dvigenie : MonoBehaviour
     private float speed = 0;
     private bool dvigA = false;
     private bool dvigD = false;
-    private float _fallVelocity = 0;
     private Vector3 _moveVector;
     private CharacterController _characterController;
 
@@ -72,10 +70,5 @@ public class dvigenie : MonoBehaviour
     void FixedUpdate()
     {
         _characterController.Move(_moveVector * speed * Time.fixedDeltaTime);
-
-        _fallVelocity += gravity * Time.fixedDeltaTime;
-        _characterController.Move(Vector3.down * _fallVelocity * Time.fixedDeltaTime);
-
-        if (_characterController.isGrounded) _fallVelocity = 0;
     }
 }
