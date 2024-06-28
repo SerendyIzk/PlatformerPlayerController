@@ -13,15 +13,15 @@ public class VerticalPlayerMovement : JumpingObject
     private bool _isJumpOnCooldown;
     private bool _isJumped = true;
     private bool _isAirJumped = true;
+    private bool _coyoteTimeExpired;
 
     protected override void Jump() { if (_isJumpOnCooldown) return;
         GC.IsGrounded = false; VerticalVelocity = JumpForce;
-        _isJumpOnCooldown = true; Invoke(nameof(ReloadJump), _jumpCooldown); _isJumped = true;_audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f); _audioSource.Play();
-    }
+        _isJumpOnCooldown = true; Invoke(nameof(ReloadJump), _jumpCooldown); _isJumped = true; _audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f); _audioSource.Play(); }
 
-    private void JumpingUpdate() { if (GC.IsGrounded) { _isJumped = false; _isAirJumped = false; }
+    private void JumpingUpdate() { if (GC.IsGrounded) { _isJumped = false; _isAirJumped = false; _coyoteTimeExpired = false; }
                                    if (Input.GetKeyDown(KeyCode.Space)) if (GC.IsGrounded) Jump(); else StartCoroutine(nameof(WaitUntilGrounded));
-                                   if (!GC.IsGrounded && !_isJumped) StartCoroutine(nameof(WaitUntilJump)); }
+                                   if (!GC.IsGrounded && !_isJumped && !_coyoteTimeExpired) StartCoroutine(nameof(WaitUntilJump)); }
 
     private void AirJumpingUpdate() { if (Input.GetKeyDown(KeyCode.Space) && !_isAirJumped && !GC.IsGrounded && !IsInvoking(nameof(CoyoteTime)) && !IsInvoking(nameof(BufferJumpTime))) { _isAirJumped = true; Jump(); } }
 
@@ -35,12 +35,11 @@ public class VerticalPlayerMovement : JumpingObject
     private IEnumerator WaitUntilJump() { Invoke(nameof(CoyoteTime), _coyoteTimeInSeconds);
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space)); Jump(); }
 
-    private void CoyoteTime() { StopCoroutine(nameof(WaitUntilJump)); }
+    private void CoyoteTime() { _coyoteTimeExpired = true; StopCoroutine(nameof(WaitUntilJump)); }
 
-    new private void Start()
-    {
+    new private void Start() {
         base.Start();
-        _audioSource = Camera.gameObject.GetComponent<AudioSource>();
-    }
+        _audioSource = Camera.gameObject.GetComponent<AudioSource>(); }
+
     private void Update() { AirJumpingUpdate(); JumpingUpdate(); }
 }

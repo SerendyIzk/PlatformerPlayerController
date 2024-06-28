@@ -129,7 +129,7 @@ MonoBehaviour:
   Gravity: 1.55
   _maxVerticalVelocity: 50
   JumpForce: 30
-  _coyoteTimeInSeconds: 0.01
+  _coyoteTimeInSeconds: 0.1
   _bufferJumpTimeInSeconds: 0.1
   _jumpCooldown: 0.025
 --- !u!114 &586375877
