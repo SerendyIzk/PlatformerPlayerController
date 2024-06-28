@@ -8,13 +8,16 @@ public class VerticalPlayerMovement : JumpingObject
     [SerializeField] private float _coyoteTimeInSeconds;
     [SerializeField] private float _bufferJumpTimeInSeconds;
     [SerializeField] private float _jumpCooldown;
+    [NonSerialized] public Camera Camera;
+    private AudioSource _audioSource;
     private bool _isJumpOnCooldown;
     private bool _isJumped = true;
     private bool _isAirJumped = true;
 
     protected override void Jump() { if (_isJumpOnCooldown) return;
         GC.IsGrounded = false; VerticalVelocity = JumpForce;
-        _isJumpOnCooldown = true; Invoke(nameof(ReloadJump), _jumpCooldown); _isJumped = true; }
+        _isJumpOnCooldown = true; Invoke(nameof(ReloadJump), _jumpCooldown); _isJumped = true;_audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f); _audioSource.Play();
+    }
 
     private void JumpingUpdate() { if (GC.IsGrounded) { _isJumped = false; _isAirJumped = false; }
                                    if (Input.GetKeyDown(KeyCode.Space)) if (GC.IsGrounded) Jump(); else StartCoroutine(nameof(WaitUntilGrounded));
@@ -34,5 +37,10 @@ public class VerticalPlayerMovement : JumpingObject
 
     private void CoyoteTime() { StopCoroutine(nameof(WaitUntilJump)); }
 
+    new private void Start()
+    {
+        base.Start();
+        _audioSource = Camera.gameObject.GetComponent<AudioSource>();
+    }
     private void Update() { AirJumpingUpdate(); JumpingUpdate(); }
 }

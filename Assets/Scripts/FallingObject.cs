@@ -13,7 +13,7 @@ public class FallingObject : MonoBehaviour
     private void FallingFixedUpdate() { VerticalVelocity = GC.IsGrounded ? 0 : Mathf.Clamp(VerticalVelocity - Gravity, -_maxVerticalVelocity, _maxVerticalVelocity);
         transform.position += Vector3.up * VerticalVelocity * Time.fixedDeltaTime; }
 
-    private void Start() { GC = transform.GetChild(0).GetComponent<GroundedController>(); }
+    public void Start() { GC = transform.GetChild(0).GetComponent<GroundedController>(); }
 
     private void FixedUpdate() { FallingFixedUpdate(); }
 }
