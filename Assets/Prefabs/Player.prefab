@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91e308d629f1ed4a8555e03f7fdb309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxVerticalScale: 2
+  _maxVerticalScale: 2.5
   _minVerticalScale: 0.4
 --- !u!114 &1628159727
 MonoBehaviour:
