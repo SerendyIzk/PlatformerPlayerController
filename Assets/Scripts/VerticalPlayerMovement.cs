@@ -9,6 +9,7 @@ public class VerticalPlayerMovement : JumpingObject
     [SerializeField] private float _bufferJumpTimeInSeconds;
     [SerializeField] private float _jumpCooldown;
     [NonSerialized] public Camera Camera;
+    private CamController _camController;
     private AudioSource _audioSource;
     private bool _isJumpOnCooldown;
     private bool _isJumped = true;
@@ -37,9 +38,24 @@ public class VerticalPlayerMovement : JumpingObject
 
     private void CoyoteTime() { _coyoteTimeExpired = true; StopCoroutine(nameof(WaitUntilJump)); }
 
-    new private void Start() {
-        base.Start();
-        _audioSource = Camera.gameObject.GetComponent<AudioSource>(); }
+    private void TochedGround()
+    {
+        _camController.Shake();
+    }
+
+    private void OnEnable()
+    {
+        GC.OnTochedGround += TochedGround;
+    }
+    private void OnDisable()
+    {
+        GC.OnTochedGround += TochedGround;
+    }
+    private void Start()
+    {
+        _audioSource = Camera.gameObject.GetComponent<AudioSource>();
+        _camController = FindObjectOfType<CamController>();
+    }
 
     private void Update() { AirJumpingUpdate(); JumpingUpdate(); }
 }
