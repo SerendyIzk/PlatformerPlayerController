@@ -18,13 +18,12 @@ public class CamController : MonoBehaviour
         CMFT = CM.GetCinemachineComponent<CinemachineFramingTransposer>();
         _noiseSettings = CM.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
-    private void Update()
-    {
+    private void Update() { 
          _moveVector = _horizontalPlayerMovement.MoveVector;
-        if (_moveVector.z == 1) { CMFT.m_ScreenX = 0.25f; }
-        else if (_moveVector.z == -1) { CMFT.m_ScreenX = 0.75f; }
-        Debug.Log((_moveVector.z, _moveVector.z == 1));
-    }
+        if (_moveVector.x < 0) { CMFT.m_ScreenX = 0.25f; }
+        else if (_moveVector.x > 0) { CMFT.m_ScreenX = 0.75f; }
+        else CMFT.m_ScreenX = 0.5f; }
+
     public void Shake()
     {
         StopCoroutine("ShakeCor");
