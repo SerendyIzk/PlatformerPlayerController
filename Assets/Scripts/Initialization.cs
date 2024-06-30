@@ -6,26 +6,28 @@ using Cinemachine;
 
 public class Initialization : MonoBehaviour
 {
-    [NonSerialized] private Camera _camera;
-    [NonSerialized] private CinemachineVirtualCamera _CM;
-    [NonSerialized] private CamController _camController;
-    [NonSerialized] private VerticalPlayerMovement _verticalPlayerMovement;
+    private Camera _camera;
+    private CamController _camController;
+    private VerticalPlayerMovement _verticalPlayerMovement;
     [NonSerialized] public Rigidbody PlayerRigidbody;
 
-
-    private void Init() {
+    private void Awake()
+    {
+        Init();
+        InitOther();
+    }
+    private void Init() 
+    {
         _camera = FindObjectOfType<Camera>();
-        _CM = FindObjectOfType<CinemachineVirtualCamera>();
         _camController = FindObjectOfType<CamController>();
         _verticalPlayerMovement = FindObjectOfType<VerticalPlayerMovement>();
-        PlayerRigidbody = _verticalPlayerMovement.GetComponent<Rigidbody>(); }
+        PlayerRigidbody = _verticalPlayerMovement.GetComponent<Rigidbody>(); 
+    }
 
     private void InitOther()
     {
         _camController.Camera = _camera;
-        _camController.CM = _CM;
         _verticalPlayerMovement.Camera = _camera;
     }
 
-    private void Awake() { Init(); InitOther(); } 
-    }
+}

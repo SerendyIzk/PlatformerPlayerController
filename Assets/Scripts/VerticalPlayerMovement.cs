@@ -40,7 +40,7 @@ public class VerticalPlayerMovement : JumpingObject
 
     private void TochedGround()
     {
-        _camController.Shake();
+        _camController.StartShake(0.2f, 20, 0.2f);
     }
 
     private void OnEnable()
