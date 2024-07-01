@@ -46,7 +46,7 @@ MonoBehaviour:
   _playerMovementPredictionCoef_horizontal: 1
   _playerMovementPredictionCoef_vertical: 1
   _defaultTransform: {fileID: 2053651252}
-  _speed: 2
+  _speed: 2.7
 --- !u!1 &2053651251
 GameObject:
   m_ObjectHideFlags: 0
