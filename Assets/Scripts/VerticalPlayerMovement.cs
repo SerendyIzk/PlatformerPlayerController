@@ -15,6 +15,7 @@ public class VerticalPlayerMovement : JumpingObject
     private bool _isJumped = true;
     private bool _isAirJumped = true;
     private bool _coyoteTimeExpired;
+    private Initialization _init;
 
     protected override void Jump() { if (_isJumpOnCooldown) return;
         GC.IsGrounded = false; VerticalVelocity = JumpForce;
@@ -38,24 +39,16 @@ public class VerticalPlayerMovement : JumpingObject
 
     private void CoyoteTime() { _coyoteTimeExpired = true; StopCoroutine(nameof(WaitUntilJump)); }
 
-    private void TochedGround()
-    {
-        _camController.StartShake(0.2f, 20, 0.2f);
-    }
+    private void TochedGround() { _camController.StartShake(0.2f, 20, 0.2f); }
 
-    private void OnEnable()
-    {
-        GC.OnTochedGround += TochedGround;
-    }
-    private void OnDisable()
-    {
-        GC.OnTochedGround += TochedGround;
-    }
-    private void Start()
-    {
+    private void Start() {
+        _init = FindObjectOfType<Initialization>();
         _audioSource = Camera.gameObject.GetComponent<AudioSource>();
-        _camController = FindObjectOfType<CamController>();
-    }
+        _camController = _init._camController; }
 
     private void Update() { AirJumpingUpdate(); JumpingUpdate(); }
+
+    private void OnEnable() { GC.OnTouchedGround += TochedGround; }
+
+    private void OnDisable() { GC.OnTouchedGround += TochedGround; }
 }

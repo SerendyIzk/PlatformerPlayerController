@@ -6,9 +6,9 @@ using Cinemachine;
 
 public class Initialization : MonoBehaviour
 {
-    private Camera _camera;
-    private CamController _camController;
-    private VerticalPlayerMovement _verticalPlayerMovement;
+    [NonSerialized] public Camera _camera;
+    [NonSerialized] public CamController _camController;
+    [NonSerialized] public VerticalPlayerMovement _verticalPlayerMovement;
     [NonSerialized] public Rigidbody PlayerRigidbody;
 
     private void Awake()

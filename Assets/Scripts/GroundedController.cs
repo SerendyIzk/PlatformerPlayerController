@@ -9,7 +9,7 @@ public class GroundedController : MonoBehaviour
     [SerializeField] private float _xAxisOffset;
     [SerializeField] private float _zAxisOffset;
     [SerializeField] private float _height;
-    public Action OnTochedGround;
+    public Action OnTouchedGround;
     private BoxCollider _bc;
     private FallingObjectSizeScaling _parentVerticalSizeScaling;
     private float _baseVerticalbcScaling;
@@ -21,7 +21,7 @@ public class GroundedController : MonoBehaviour
     private void ColliderUpdate() { if (_parentVerticalSizeScaling == null) return;
         _bc.size = new Vector3(_bc.size.x, _baseVerticalbcScaling / (transform.parent.transform.localScale.y / _parentVerticalSizeScaling.BaseVerticalScale), _bc.size.z); }
 
-    private void OnTriggerEnter(Collider col) { if (col.CompareTag("Ground")) { IsGrounded = true; OnTochedGround?.Invoke(); } }
+    private void OnTriggerEnter(Collider col) { if (col.CompareTag("Ground")) { IsGrounded = true; OnTouchedGround?.Invoke(); } }
 
     private void OnTriggerExit(Collider col) { if (col.CompareTag("Ground")) IsGrounded = false; }
 

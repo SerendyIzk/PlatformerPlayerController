@@ -206,8 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gravity: 1.55
-  _maxVerticalVelocity: 50
-  JumpForce: 30
+  _maxVerticalVelocity: 42
+  JumpForce: 35
   _coyoteTimeInSeconds: 0.1
   _bufferJumpTimeInSeconds: 0.1
   _jumpCooldown: 0.025
@@ -223,8 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91e308d629f1ed4a8555e03f7fdb309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxVerticalScale: 2.5
-  _minVerticalScale: 0.4
+  _maxVerticalScale: 2.6
+  _minVerticalScale: 0.3
+  _maxHorizontalScale: 2
+  _minHorizontalScale: 0.35
 --- !u!114 &1628159727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,8 +239,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f94bcb3b8ef713459f58d0114cb6495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DashChargeSpeed: 1.8
+  MaxDashForce: 300
+  MinDashForce: 100
+  _slowMotionScale: 0.01
   _acceleration: 60
   _maxSpeed: 25
+  _dashForceBar: {fileID: 0}
 --- !u!1001 &8367090524627646277
 PrefabInstance:
   m_ObjectHideFlags: 0
