@@ -47,6 +47,8 @@ MonoBehaviour:
   _playerMovementPredictionCoef_vertical: 1
   _defaultTransform: {fileID: 2053651252}
   _speed: 2.7
+  _maxDistance_z: 300
+  _maxDistance_y: 300
 --- !u!1 &2053651251
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,9 +241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f94bcb3b8ef713459f58d0114cb6495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashChargeSpeed: 1.8
-  MaxDashForce: 300
-  MinDashForce: 100
+  DashChargeSpeed: 0.3
+  MaxDashForce: 80
+  MinDashForce: 45
   _slowMotionScale: 0.01
   _acceleration: 60
   _maxSpeed: 25

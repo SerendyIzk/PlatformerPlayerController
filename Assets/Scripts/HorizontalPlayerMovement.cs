@@ -42,7 +42,7 @@ public class HorizontalPlayerMovement : DashingObject
 
     new private void Awake() { base.Awake(); _fixedDeltaTime = Time.fixedDeltaTime; }
 
-    private void Update() { MoveVectorDefiningUpdate(); MovementSpeedLimitUpdate(); /* DashPreparingUpdate(); DashForceBarUpdate(); */}
+    private void Update() { MoveVectorDefiningUpdate(); MovementSpeedLimitUpdate(); DashPreparingUpdate(); DashForceBarUpdate(); }
 
     private void FixedUpdate() { MovementFixedUpdate(); }
 }

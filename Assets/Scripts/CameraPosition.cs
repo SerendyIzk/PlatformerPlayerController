@@ -9,6 +9,8 @@ public class CameraPosition : MonoBehaviour
     [SerializeField] private float _playerMovementPredictionCoef_vertical;
     [SerializeField] private Transform _defaultTransform;
     [SerializeField] private float _speed;
+    [SerializeField] private float _maxDistance_z;
+    [SerializeField] private float _maxDistance_y;
     private Rigidbody _playerRB;
     private HorizontalPlayerMovement _horizontalPlayerMovement;
     private VerticalPlayerMovement _verticalPlayerMovement;
@@ -19,8 +21,8 @@ public class CameraPosition : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, _defaultTransform.position + _playerRB.velocity * _playerMovementPredictionCoef_horizontal
-            + new Vector3(0, _verticalPlayerMovement.VerticalVelocity, 0) * _playerMovementPredictionCoef_vertical, _speed * Time.fixedDeltaTime);
+        transform.position = Vector3.Lerp(transform.position, _defaultTransform.position + new Vector3(0, Mathf.Clamp(_verticalPlayerMovement.VerticalVelocity, -_maxDistance_y, _maxDistance_y),
+            Mathf.Clamp(_playerRB.velocity.z * _playerMovementPredictionCoef_horizontal, -_maxDistance_z, _maxDistance_z)), _speed * Time.fixedDeltaTime);
     }
     private void Init()
     {
