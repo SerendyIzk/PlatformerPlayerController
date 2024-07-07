@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DashingObject : MonoBehaviour
 {
+    public float VelocityOnStart { get; protected set; }
     public float DashChargeSpeed;
     public float MaxDashForce;
     public float MinDashForce;
@@ -13,7 +14,11 @@ public class DashingObject : MonoBehaviour
     protected Rigidbody _rb;
     private Initialization _init;
 
-    protected virtual void Dash() { if (!GC.IsGrounded && _dashAvailable) { _rb.AddForce(transform.forward * UnityEngine.Random.Range(MinDashForce, MaxDashForce), ForceMode.Impulse); _dashAvailable = false; } }
+    protected virtual void Dash() { if (!GC.IsGrounded && _dashAvailable) { VelocityOnStart = _rb.velocity.z; StartCoroutine(nameof(NullifyingVerticalVelocityWhileDashingUpdate));
+            _rb.AddForce(transform.forward * UnityEngine.Random.Range(MinDashForce, MaxDashForce), ForceMode.Impulse); _dashAvailable = false; } }
+
+    protected IEnumerator NullifyingVerticalVelocityWhileDashingUpdate() { Vector3 vel = _rb.velocity; 
+        while (Mathf.Abs(vel.z) > Mathf.Abs(VelocityOnStart)) _rb.velocity = new Vector3(vel.x, 0, vel.z); yield return null; }
 
     protected void ReloadDash() { _dashAvailable = true; }
 

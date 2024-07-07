@@ -20,17 +20,23 @@ public class HorizontalPlayerMovement : DashingObject
         while (true) { _dashForce = Mathf.Clamp(_dashForce += DashChargeSpeed, MinDashForce, MaxDashForce); yield return null; } }
 
     private IEnumerator DashWaitUntilActivate() { StartCoroutine(nameof(DashConditionCheck));
-        yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.E)); Dash(); ReturnBasePassageOfTime(); StopAllCoroutines(); } // !WARNING! Stopping All coroutines
+        yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.E)); Dash(); ReturnBasePassageOfTime(); StopNeededCnsOnDash(); }
 
     private IEnumerator DashConditionCheck() { yield return new WaitUntil(() => GC.IsGrounded); ReturnBasePassageOfTime(); StopAllCoroutines(); } // !WARNING! Stopping All coroutines
 
-    protected override void Dash() { _rb.AddForce(MoveVector * _dashForce, ForceMode.Impulse); }
+    protected override void Dash() { VelocityOnStart = _rb.velocity.z; StartCoroutine(nameof(NullifyingVerticalVelocityWhileDashingUpdate));
+        _rb.AddForce(MoveVector * _dashForce, ForceMode.Impulse); }
 
     private void SaveFixedUpdateRate() { Time.fixedDeltaTime = _fixedDeltaTime * Time.timeScale; }
 
     private void ReturnBasePassageOfTime() { Time.timeScale = 1f; SaveFixedUpdateRate(); _dashForce = 0; }
 
     private void DashForceBarUpdate() { _dashForceBar.FillerUpdate(MinDashForce, MaxDashForce, _dashForce, true); }
+
+    private void StopNeededCnsOnDash() {
+        StopCoroutine(nameof(DashCharging));
+        StopCoroutine(nameof(DashWaitUntilActivate));
+        StopCoroutine(nameof(DashConditionCheck)); }
 
     private void MoveVectorDefiningUpdate() { MoveVector = Vector3.zero;
                                               if (Input.GetKey(KeyCode.D)) { MoveVector = transform.right; }
