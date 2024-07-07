@@ -481,6 +481,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 362529292, guid: 4805b77ec7499a44b9e42643ec2b6b26, type: 3}
+      propertyPath: _softZoneHeight
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 362529292, guid: 4805b77ec7499a44b9e42643ec2b6b26, type: 3}
       propertyPath: _targetTransform
       value: 
       objectReference: {fileID: 1318630489}
