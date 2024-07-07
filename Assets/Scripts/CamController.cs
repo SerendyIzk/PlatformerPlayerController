@@ -10,6 +10,8 @@ public class CamController : MonoBehaviour
     public float _deadZoneHeight;
     [SerializeField] private Transform _targetTransform;
     [SerializeField] private Transform _defaultTransform;
+    [SerializeField] private float _softZoneWidth;
+    [SerializeField] private float _softZoneHeight;
     private Transform _playerTransform;
     private float _timeShake;
     private float _frequencyShake; // Сколько раз в секунду будет меняться положение камеры
@@ -75,7 +77,7 @@ public class CamController : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, transform.position.y, new_z);
             }
         }
-        else if (Mathf.Abs(_targetTransform.position.z - _defaultTransform.position.z) > _deadZoneWidth || Mathf.Abs(transform.position.z - _defaultTransform.position.z) > _deadZoneWidth)
+        else if (Mathf.Abs(_targetTransform.position.z - _defaultTransform.position.z) > _deadZoneWidth/* || Mathf.Abs(transform.position.z - _defaultTransform.position.z) > _deadZoneWidth*/)
         {
             float new_z = Mathf.Lerp(transform.position.z, _targetTransform.position.z, _speed * Time.fixedDeltaTime);
             transform.position = new Vector3(transform.position.x, transform.position.y, new_z);
@@ -99,6 +101,8 @@ public class CamController : MonoBehaviour
             float new_y = Mathf.Lerp(transform.position.y, _targetTransform.position.y, _speed * Time.fixedDeltaTime);
             transform.position = new Vector3(transform.position.x, new_y, transform.position.z);
         }
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, _defaultTransform.position.y - _softZoneHeight, _defaultTransform.position.y + _softZoneHeight),
+            Mathf.Clamp(transform.position.z, _defaultTransform.position.z - _softZoneWidth, _defaultTransform.position.z + _softZoneWidth));
     }
 
     private void Init()

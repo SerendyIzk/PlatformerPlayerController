@@ -198,6 +198,8 @@ MonoBehaviour:
   _deadZoneHeight: 0
   _targetTransform: {fileID: 0}
   _defaultTransform: {fileID: 0}
+  _softZoneWidth: 13
+  _softZoneHeight: 9
   Camera: {fileID: 0}
 --- !u!1 &6986534494875878147
 GameObject:
